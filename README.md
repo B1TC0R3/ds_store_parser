@@ -27,3 +27,6 @@ cd ds_store_parser
 cargo build --release
 cp target/release/ds_store_parser .
 ```
+## Resources
+
+This actually helped a lot: https://0day.work/parsing-the-ds_store-file-format/
