@@ -1,8 +1,16 @@
 use std::io::{BufReader, Read};
 use std::fs::File;
 use anyhow::Result;
+use clap::Parser;
 
 static BYTE_SIZE: usize = 8;
+
+#[derive(Parser)]
+#[command(version, about, long_about = None)]
+struct Args {
+    #[arg(short, long)]
+    file: String
+}
 
 struct DsStore {
     name: String,
@@ -258,8 +266,10 @@ impl DsStoreParser {
 }
 
 fn main() {
+    let args = Args::parse();
+
     let dss_parser = DsStoreParser::new();
-    let ds_store = match dss_parser.parse("DS_Store") {
+    let ds_store = match dss_parser.parse(&args.file) {
         Ok(ds_store) => ds_store,
         Err(msg) => {
             eprintln!("ERROR: {}. Aborting.", msg);
